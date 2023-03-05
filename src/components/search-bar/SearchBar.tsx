@@ -18,7 +18,8 @@ class SearchBar extends React.Component<Record<string, unknown>, State> {
 
   render() {
     return (
-      <div>
+      <div className="search">
+        <h1 className="search-title">Search Something</h1>
         <label className="input-wrapper">
           <img src={SearchIcon} alt="Поиск" height={20} width={20} className="input-search-icon" />
           <input
@@ -26,6 +27,7 @@ class SearchBar extends React.Component<Record<string, unknown>, State> {
             type="text"
             value={this.state.inputValue}
             onChange={(event) => this.setState({ inputValue: event.target.value })}
+            placeholder="Search"
           />
         </label>
       </div>
