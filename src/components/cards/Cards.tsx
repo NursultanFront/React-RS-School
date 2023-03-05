@@ -5,6 +5,8 @@ import BlackBerryPhone from '../../assets/3.jpg';
 import ChinesePhone from '../../assets/4.jpg';
 import HuaweiPhone from '../../assets/5.jpg';
 import MacbookLaptop from '../../assets/6.png';
+import LikeIcon from '../../assets/like.svg';
+import EyeIcon from '../../assets/eye.svg';
 import './cards.css';
 
 export class Cards extends Component {
@@ -17,6 +19,8 @@ export class Cards extends Component {
       likes: 94,
       brand: 'Apple',
       images: IphoneImage,
+      likeIcon: LikeIcon,
+      eyeIcon: EyeIcon,
     },
     {
       id: 2,
@@ -27,6 +31,8 @@ export class Cards extends Component {
       brand: 'Apple',
       likes: 34,
       images: Iphone10Image,
+      likeIcon: LikeIcon,
+      eyeIcon: EyeIcon,
     },
     {
       id: 3,
@@ -36,6 +42,8 @@ export class Cards extends Component {
       likes: 36,
       brand: 'Samsung',
       images: BlackBerryPhone,
+      likeIcon: LikeIcon,
+      eyeIcon: EyeIcon,
     },
     {
       id: 4,
@@ -45,6 +53,8 @@ export class Cards extends Component {
       likes: 123,
       brand: 'OPPO',
       images: ChinesePhone,
+      likeIcon: LikeIcon,
+      eyeIcon: EyeIcon,
     },
     {
       id: 5,
@@ -55,6 +65,8 @@ export class Cards extends Component {
       likes: 32,
       brand: 'Huawei',
       images: HuaweiPhone,
+      likeIcon: LikeIcon,
+      eyeIcon: EyeIcon,
     },
     {
       id: 6,
@@ -64,6 +76,8 @@ export class Cards extends Component {
       likes: 83,
       brand: 'Apple',
       images: MacbookLaptop,
+      likeIcon: LikeIcon,
+      eyeIcon: EyeIcon,
     },
   ];
 
@@ -83,12 +97,12 @@ export class Cards extends Component {
                   amet neque accusamus dicta, maiores magnam repellat maxime nobis nisi!
                 </p>
                 <div className="card-info">
-                  <div>
-                    <img src="" alt="" />
+                  <div className="card-more-info">
+                    <img src={item.likeIcon} width={24} height={24} alt="Likes" />
                     <div>{item.likes}</div>
                   </div>
-                  <div>
-                    <img src="" alt="" />
+                  <div className="card-more-info">
+                    <img src={item.eyeIcon} width={24} height={24} alt="views" />
                     <div>{item.views}</div>
                   </div>
                 </div>
