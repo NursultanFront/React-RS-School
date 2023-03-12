@@ -17,7 +17,13 @@ export class Cards extends Component<Props, Record<string, unknown>> {
         {this.props.products.map((item) => {
           return (
             <li key={item.id} className="card-item">
-              <img className="card-img" src={item.images} alt="card-img" width={295} height={300} />
+              <img
+                className="card-img"
+                src={item.images}
+                alt="image for cards"
+                width={295}
+                height={300}
+              />
               <div className="card-content">
                 <h3 className="card-title">{item.title}</h3>
                 <p className="card-brand">{item.brand}</p>
