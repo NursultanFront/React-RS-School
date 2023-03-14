@@ -1,5 +1,5 @@
 import React from 'react';
-import SearchIcon from '../../assets/search.svg';
+import SearchIcon from '@/assets/search.svg';
 import './search.css';
 
 interface State {

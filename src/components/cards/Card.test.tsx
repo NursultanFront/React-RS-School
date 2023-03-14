@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { IProduct } from 'data/cards';
+import { IProduct } from '@/data/cards';
 
 import Cards from './Cards';
 

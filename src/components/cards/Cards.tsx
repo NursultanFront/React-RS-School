@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import type { IProduct } from 'data/cards';
+import type { IProduct } from '@/data/cards';
 import './cards.css';
 
 interface Props {
