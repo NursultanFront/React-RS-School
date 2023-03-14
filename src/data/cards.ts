@@ -1,11 +1,11 @@
-import IphoneImage from '@/assets/1.jpg';
-import Iphone10Image from '@/assets/2.jpg';
-import BlackBerryPhone from '@/assets/3.jpg';
-import ChinesePhone from '@/assets/4.jpg';
-import HuaweiPhone from '@/assets/5.jpg';
-import MacbookLaptop from '@/assets/6.png';
-import LikeIcon from '@/assets/like.svg';
-import EyeIcon from '@/assets/eye.svg';
+import IphoneImage from '../assets/1.jpg';
+import Iphone10Image from '../assets/2.jpg';
+import BlackBerryPhone from '../assets/3.jpg';
+import ChinesePhone from '../assets/4.jpg';
+import HuaweiPhone from '../assets/5.jpg';
+import MacbookLaptop from '../assets/6.png';
+import LikeIcon from '../assets/like.svg';
+import EyeIcon from '../assets/eye.svg';
 
 export interface IProduct {
   id: number;

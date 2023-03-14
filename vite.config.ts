@@ -7,11 +7,6 @@ import eslint from 'vite-plugin-eslint';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  resolve: {
-    alias: {
-      '@': new URL('src', import.meta.url).pathname,
-    },
-  },
   plugins: [react(), eslint()],
   test: {
     globals: true,
@@ -20,6 +15,7 @@ export default defineConfig({
     coverage: {
       provider: 'c8',
       all: true,
+      skipFull: true,
       reporter: 'text',
     },
   },
