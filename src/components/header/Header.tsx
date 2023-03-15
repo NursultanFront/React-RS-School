@@ -1,33 +1,28 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
+import { withRouter } from '../../helper/withRouter';
+import { WithRouterProps } from '../../helper/withRouter';
 
-interface IHeaderItems {
-  route: string;
-  name: string;
-}
+class Header extends Component<WithRouterProps> {
+  getLocation = () => {
+    const pathname = this.props.location.pathname;
+    if (pathname == '/') {
+      return 'home';
+    }
 
-export default class Header extends Component {
-  public headerItems: IHeaderItems[] = [
-    {
-      route: '/',
-      name: 'Home',
-    },
-    {
-      route: '/about',
-      name: 'About',
-    },
-  ];
+    return pathname.slice(1);
+  };
   render() {
     return (
       <header>
-        {this.headerItems.map((item, index) => {
-          return (
-            <NavLink key={index} to={item.route}>
-              {item.name}
-            </NavLink>
-          );
-        })}
+        <NavLink to="/">Home</NavLink>
+        <NavLink to="about">About</NavLink>
+        <p>
+          And now you are in <b>{this.getLocation()}</b> here right now
+        </p>
       </header>
     );
   }
 }
+
+export default withRouter(Header);
