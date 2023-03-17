@@ -15,8 +15,9 @@ export default defineConfig({
     coverage: {
       provider: 'c8',
       all: true,
-      skipFull: true,
-      reporter: 'text',
+      enabled: true, // or 'istanbul'
+      reporter: ['text'],
+      include: ['**/*.{jsx,tsx}'],
     },
   },
 });
