@@ -70,3 +70,20 @@ img {
   color: brown;
   text-decoration: underline;
 }
+
+.header {
+  padding: 2rem 0;
+}
+.header p {
+  text-transform: uppercase;
+}
+
+.header__wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.header__links {
+  display: flex;
+  gap: 1rem;
+}
