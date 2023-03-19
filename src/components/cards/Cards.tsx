@@ -27,11 +27,7 @@ export class Cards extends Component<Props, Record<string, unknown>> {
               <div className="card-content">
                 <h3 className="card-title">{item.title}</h3>
                 <p className="card-brand">{item.brand}</p>
-                <p className="card-descr">
-                  {item.descr} Lorem ipsum dolor sit, amet consectetur adipisicing elit. Molestias
-                  veniam dolorem, necessitatibus animi a perferendis quos quae soluta modi sunt,
-                  amet neque accusamus dicta, maiores magnam repellat maxime nobis nisi!
-                </p>
+                <p className="card-descr">{item.descr}</p>
                 <div className="card-info">
                   <div className="card-more-info">
                     <img src={item.likeIcon} width={24} height={24} alt="Likes" />
@@ -50,5 +46,4 @@ export class Cards extends Component<Props, Record<string, unknown>> {
     );
   }
 }
-
 export default Cards;
