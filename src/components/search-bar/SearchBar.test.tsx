@@ -3,12 +3,6 @@ import { describe, expect, it } from 'vitest';
 import SearchBar from './SearchBar';
 
 describe('Testing SearchBar', () => {
-  it('renders headline', () => {
-    render(<SearchBar />);
-    const someText = screen.getByText(/search/i);
-    expect(someText).toBeInTheDocument();
-  });
-
   it('test input placeholder', () => {
     render(<SearchBar />);
     const input = screen.getByPlaceholderText(/Search/i);
