@@ -20,6 +20,7 @@ class Header extends Component<WithRouterProps> {
           <div className="header__links">
             <NavLink to="/">Home</NavLink>
             <NavLink to="about">About</NavLink>
+            <NavLink to="form">Form</NavLink>
           </div>
 
           <p>

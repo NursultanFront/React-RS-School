@@ -8,6 +8,7 @@ import NotFound from './page/notFound/NotFound';
 
 import './index.css';
 import Home from './page/home/Home';
+import FormsPage from './page/form/FormsPage';
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
           {
             path: '/about',
             element: <About></About>,
+          },
+          {
+            path: '/form',
+            element: <FormsPage />,
           },
         ],
       },
