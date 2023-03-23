@@ -9,22 +9,29 @@ interface InputForm {
   radio: string | undefined;
 }
 
-interface ErorrsValidation {
-  showError: boolean;
-  errorText: string;
+interface ErrorsValidation {
+  textError: string;
+  dateError?: string;
+  radioError?: string;
+  fileError?: string;
 }
 
 interface State {
   showError: boolean;
   showAproove: boolean;
-  errors?: ErorrsValidation[] | [];
+  errors: ErrorsValidation;
 }
 
 export default class Form extends Component<Record<string, unknown>, State> {
   state: State = {
     showError: false,
     showAproove: false,
-    errors: [],
+    errors: {
+      textError: '',
+      dateError: '',
+      radioError: '',
+      fileError: '',
+    },
   };
 
   public inputForm = {
@@ -38,6 +45,10 @@ export default class Form extends Component<Record<string, unknown>, State> {
 
   validation = (value: InputForm) => {
     console.log(value);
+    if (value.text == '') {
+      console.log('sdads');
+      this.setState({ errors: { textError: 'validate' } });
+    }
   };
 
   getForm = (event: React.ChangeEvent<HTMLFormElement>) => {
@@ -68,7 +79,7 @@ export default class Form extends Component<Record<string, unknown>, State> {
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <label htmlFor="input-text">
               <input type="text" id="input-text" ref={this.inputForm.inputText} />
-              <p>{this.state.showError}</p>
+              <p>{this.state.errors.textError}</p>
             </label>
             <label htmlFor="input-date">
               <input type="date" name="" id="input-date" ref={this.inputForm.inputDate} />
