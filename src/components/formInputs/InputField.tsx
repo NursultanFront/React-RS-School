@@ -1,11 +1,15 @@
 import React, { Component, LegacyRef } from 'react';
 
 interface IProps {
+  text?: string;
+  name?: string;
   type: string;
-  id?: string | number;
+  id?: string | undefined;
   refProp: LegacyRef<HTMLInputElement>;
-  errorMessage: string;
+  value?: string;
+  errorMessage?: string;
   showError?: boolean;
+  children?: string;
 }
 
 interface State {
@@ -14,10 +18,14 @@ interface State {
 
 export class InputField extends Component<IProps, State> {
   render() {
+    const { type, refProp, errorMessage, showError, name, value, children, id } = this.props;
     return (
       <>
-        <input type={this.props.type} ref={this.props.refProp} />
-        <p>{this.props.showError && this.props.errorMessage}</p>
+        <label htmlFor={id}>
+          {children}
+          <input id={id} type={type} ref={refProp} name={name} value={value} />
+          <p className="errors">{showError && errorMessage}</p>
+        </label>
       </>
     );
   }

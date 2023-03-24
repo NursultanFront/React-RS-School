@@ -87,3 +87,21 @@ img {
   display: flex;
   gap: 1rem;
 }
+
+.errors {
+  color: #ff0000;
+}
+
+.success {
+  color: #008000;
+}
+.d-center {
+  display: flex;
+  justify-content: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

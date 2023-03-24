@@ -1,134 +1,235 @@
+import MySelect from '../formInputs/MySelect';
 import React, { Component } from 'react';
+import { InputField } from '../formInputs/InputField';
 
-interface InputForm {
-  text: string | undefined;
-  date: string | undefined;
-  checkBox: boolean | undefined;
-  file: number | undefined;
-  dropDown: string | undefined;
-  radio: string | undefined;
+interface Values {
+  id: number;
+  brand: string;
 }
 
-interface ErrorsValidation {
-  textError: string;
-  dateError?: string;
-  radioError?: string;
-  fileError?: string;
+interface Options {
+  empty: string | undefined;
+  defaultValue: string;
+  values: Values[];
+}
+
+interface Input {
+  inputTextError: boolean;
+  inputRegisterError: boolean;
+  inputDateError: boolean;
+  inputFileError: boolean;
+  inputRadioError: boolean;
+  inputSelectError: boolean;
+  inputCheckboxError: boolean;
 }
 
 interface State {
-  showError: boolean;
-  showAproove: boolean;
-  errors: ErrorsValidation;
+  formState: boolean;
+  inputState: Input;
 }
 
-export default class Form extends Component<Record<string, unknown>, State> {
+interface Props {
+  message?: string;
+}
+
+export default class Form extends Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+  }
+
   state: State = {
-    showError: false,
-    showAproove: false,
-    errors: {
-      textError: '',
-      dateError: '',
-      radioError: '',
-      fileError: '',
+    formState: false,
+    inputState: {
+      inputTextError: false,
+      inputRegisterError: false,
+      inputDateError: false,
+      inputFileError: false,
+      inputRadioError: false,
+      inputSelectError: false,
+      inputCheckboxError: false,
     },
   };
 
-  public inputForm = {
-    inputText: React.createRef<HTMLInputElement>(),
-    inputDate: React.createRef<HTMLInputElement>(),
-    inputCheckBox: React.createRef<HTMLInputElement>(),
-    inputFile: React.createRef<HTMLInputElement>(),
-    inputDropdown: React.createRef<HTMLSelectElement>(),
-    inputRadio: React.createRef<HTMLInputElement>(),
+  inputsDefault: Input = {
+    inputTextError: false,
+    inputRegisterError: false,
+    inputDateError: false,
+    inputFileError: false,
+    inputRadioError: false,
+    inputSelectError: false,
+    inputCheckboxError: false,
   };
 
-  validation = (value: InputForm) => {
-    console.log(value);
-    if (value.text == '') {
-      console.log('sdads');
-      this.setState({ errors: { textError: 'validate' } });
+  form = React.createRef<HTMLFormElement>();
+  inputText = React.createRef<HTMLInputElement>();
+  inputDate = React.createRef<HTMLInputElement>();
+  inputFile = React.createRef<HTMLInputElement>();
+  inputRadioBlack = React.createRef<HTMLInputElement>();
+  inputRadioWhite = React.createRef<HTMLInputElement>();
+  inputSelect = React.createRef<HTMLSelectElement>();
+  inputCheckbox = React.createRef<HTMLInputElement>();
+
+  options: Options = {
+    empty: this.inputSelect.current?.value,
+    defaultValue: 'Choose your phone',
+    values: [
+      { id: 1, brand: 'Samsung' },
+      { id: 2, brand: 'Apple' },
+      { id: 3, brand: 'Xiaomi' },
+    ],
+  };
+
+  radioCheck = () => {
+    const inputRadio = [this.inputRadioWhite, this.inputRadioBlack];
+
+    const radios = inputRadio.some((item) => item.current?.checked === true);
+    return radios;
+  };
+
+  clearForm = (value: State['formState']) => {
+    if (value) {
+      this.form.current?.reset();
     }
   };
 
-  getForm = (event: React.ChangeEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    // console.log(this.inputForm.inputText.current?.value);
-    // console.log(this.inputForm.inputDate.current?.value);
-    // console.log(this.inputForm.inputCheckBox.current?.checked);
-    // console.log(this.inputForm.inputFile.current?.files?.length);
-    // console.log(this.inputForm.inputDropdown.current?.value);
-    // console.log(this.inputForm.inputRadio.current?.value);
+  checkState = (value: State['inputState']) => {
+    const state = Object.values(value).every((item) => item === false);
 
-    const inputForm: InputForm = {
-      text: this.inputForm.inputText.current?.value,
-      date: this.inputForm.inputDate.current?.value,
-      checkBox: this.inputForm.inputCheckBox.current?.checked,
-      file: this.inputForm.inputFile.current?.files?.length,
-      dropDown: this.inputForm.inputDropdown.current?.value,
-      radio: this.inputForm.inputRadio.current?.value,
+    this.setState(
+      (prevState: State) => {
+        return {
+          ...prevState,
+          formState: state,
+        };
+      },
+      () => this.clearForm(this.state.formState)
+    );
+  };
+
+  removeValidation = () => {
+    this.setState((prevState: State) => {
+      return {
+        ...prevState,
+        inputState: { ...this.inputsDefault },
+      };
+    });
+  };
+
+  validation = () => {
+    const validate = {
+      ...this.inputsDefault,
     };
 
-    this.validation(inputForm);
+    if (this.inputText.current?.value.trim() == '') {
+      validate.inputTextError = true;
+    }
+
+    if (this.inputDate.current?.value == '') {
+      validate.inputDateError = true;
+    }
+
+    if (this.inputFile.current?.files?.length == 0) {
+      validate.inputFileError = true;
+    }
+
+    if (!this.radioCheck()) {
+      validate.inputRadioError = true;
+    }
+
+    if (this.inputSelect.current?.value == '') {
+      validate.inputSelectError = true;
+    }
+
+    if (!this.inputCheckbox.current?.checked) {
+      validate.inputCheckboxError = true;
+    }
+
+    console.log(this.inputSelect.current?.value);
+    this.setState(
+      (prevState: State) => {
+        return { ...prevState, inputState: { ...validate } };
+      },
+      () => this.checkState(this.state.inputState)
+    );
+  };
+
+  onSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    this.removeValidation();
+    this.validation();
   };
   render() {
     return (
       <>
-        <div>Forms</div>
-        <form onSubmit={this.getForm}>
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <label htmlFor="input-text">
-              <input type="text" id="input-text" ref={this.inputForm.inputText} />
-              <p>{this.state.errors.textError}</p>
-            </label>
-            <label htmlFor="input-date">
-              <input type="date" name="" id="input-date" ref={this.inputForm.inputDate} />
-            </label>
-            <label htmlFor="input-checkbox">
-              <input
-                type="checkbox"
-                name=""
-                id="input-checkbox"
-                ref={this.inputForm.inputCheckBox}
-              />
-            </label>
-            <label>
-              <select defaultValue="HTML" name="select" ref={this.inputForm.inputDropdown}>
-                <option value="HTML">Значение 1</option>
-                <option value="CSS" selected>
-                  Значение 2
-                </option>
-                <option value="JS">Значение 3</option>
-              </select>
-            </label>
-            <label htmlFor="input-file">
-              <input type="file" name="" id="input-file" ref={this.inputForm.inputFile} />
-            </label>
-
-            <label htmlFor="first">
-              First
-              <input
+        <div className="d-center">
+          <form ref={this.form} onSubmit={this.onSubmit} className="form">
+            <InputField
+              id="text"
+              showError={this.state.inputState.inputTextError}
+              errorMessage="Please fill out all fields "
+              type="text"
+              refProp={this.inputText}
+            ></InputField>
+            <InputField
+              id="date"
+              showError={this.state.inputState.inputDateError}
+              errorMessage="Please fill out all fields "
+              type="date"
+              refProp={this.inputDate}
+            ></InputField>
+            <InputField
+              id="file"
+              type="file"
+              showError={this.state.inputState.inputFileError}
+              errorMessage="Please choose the file"
+              refProp={this.inputFile}
+            ></InputField>
+            <div>
+              <InputField
+                id="black"
+                name="color"
                 type="radio"
-                name="a"
-                id="first"
-                ref={this.inputForm.inputRadio}
-                value="first"
-              />
-            </label>
-            <label htmlFor="second">
-              Second
-              <input
+                refProp={this.inputRadioBlack}
+                value="Black"
+              >
+                Black
+              </InputField>
+              <InputField
+                id="white"
+                name="color"
                 type="radio"
-                name="a"
-                id="second"
-                ref={this.inputForm.inputRadio}
-                value="second"
-              />
-            </label>
-          </div>
+                refProp={this.inputRadioWhite}
+                value="White"
+              >
+                White
+              </InputField>
+              <p className="errors">
+                {this.state.inputState.inputRadioError && 'Please choose one of them'}
+              </p>
+            </div>
+            <MySelect
+              showError={this.state.inputState.inputSelectError}
+              errorMessage="Please choose your brand"
+              refProp={this.inputSelect}
+              options={this.options}
+            ></MySelect>
+            <InputField
+              id="check"
+              type="checkbox"
+              errorMessage="Please fill the checkbox"
+              showError={this.state.inputState.inputCheckboxError}
+              refProp={this.inputCheckbox}
+            >
+              I consent to my personal data field, list of extra presents
+            </InputField>
+            <div>
+              <button type="submit">Submit</button>
+            </div>
 
-          <button type="submit">Send</button>
-        </form>
+            <p className="success">{this.state.formState && 'Submit succesful'}</p>
+          </form>
+        </div>
       </>
     );
   }
