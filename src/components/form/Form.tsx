@@ -2,6 +2,14 @@ import MySelect from '../formInputs/MySelect';
 import React, { Component } from 'react';
 import { InputField } from '../formInputs/InputField';
 
+interface Product {
+  id?: string | number;
+  data?: Date;
+  brand?: string;
+  color?: string;
+  img?: string;
+}
+
 interface Values {
   id: number;
   brand: string;
@@ -29,7 +37,7 @@ interface State {
 }
 
 interface Props {
-  message?: string;
+  getProducts: (value: Product) => void;
 }
 
 export default class Form extends Component<Props, State> {
@@ -158,6 +166,10 @@ export default class Form extends Component<Props, State> {
 
     this.removeValidation();
     this.validation();
+
+    this.props.getProducts({
+      brand: this.inputSelect.current?.value,
+    });
   };
   render() {
     return (
