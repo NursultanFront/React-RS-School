@@ -29,6 +29,19 @@ export default class FormsPage extends Component<Props, State> {
     products: [],
   };
 
+  componentDidMount(): void {
+    const card = localStorage.getItem('cards');
+    if (typeof card === 'string') {
+      const parse = JSON.parse(card);
+      console.log(parse);
+      this.setState({ products: parse });
+    }
+  }
+
+  componentWillUnmount(): void {
+    localStorage.setItem('cards', JSON.stringify(this.state.products));
+  }
+
   getProducts = (value: Product, count: number) => {
     this.setState((prevState: State) => {
       return {
