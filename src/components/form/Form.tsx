@@ -3,11 +3,11 @@ import React, { Component } from 'react';
 import { InputField } from '../formInputs/InputField';
 
 interface Product {
-  id?: string | number;
-  data?: Date;
-  brand?: string;
-  color?: string;
-  img?: string;
+  id: string | number | undefined;
+  date: string | undefined;
+  brand: string | undefined;
+  color: string | undefined;
+  img: string | undefined;
 }
 
 interface Values {
@@ -37,7 +37,8 @@ interface State {
 }
 
 interface Props {
-  getProducts: (value: Product) => void;
+  count: number;
+  getProducts: (value: Product, count: number) => void;
 }
 
 export default class Form extends Component<Props, State> {
@@ -87,6 +88,22 @@ export default class Form extends Component<Props, State> {
     ],
   };
 
+  createCards = (value: State['formState']) => {
+    if (value) {
+      this.props.getProducts(
+        {
+          brand: this.inputSelect.current?.value,
+          color: this.inputRadioBlack.current?.value ?? this.inputRadioWhite.current?.value,
+          img: this.inputFile.current?.value,
+          date: this.inputDate.current?.value,
+          id: this.props.count + 1,
+        },
+        this.props.count + 1
+      );
+
+      this.clearForm();
+    }
+  };
   radioCheck = () => {
     const inputRadio = [this.inputRadioWhite, this.inputRadioBlack];
 
@@ -94,10 +111,12 @@ export default class Form extends Component<Props, State> {
     return radios;
   };
 
-  clearForm = (value: State['formState']) => {
-    if (value) {
-      this.form.current?.reset();
-    }
+  clearForm = () => {
+    this.form.current?.reset();
+
+    setTimeout(() => {
+      this.setState({ formState: false });
+    }, 5000);
   };
 
   checkState = (value: State['inputState']) => {
@@ -110,7 +129,7 @@ export default class Form extends Component<Props, State> {
           formState: state,
         };
       },
-      () => this.clearForm(this.state.formState)
+      () => this.createCards(this.state.formState)
     );
   };
 
@@ -152,7 +171,6 @@ export default class Form extends Component<Props, State> {
       validate.inputCheckboxError = true;
     }
 
-    console.log(this.inputSelect.current?.value);
     this.setState(
       (prevState: State) => {
         return { ...prevState, inputState: { ...validate } };
@@ -166,10 +184,6 @@ export default class Form extends Component<Props, State> {
 
     this.removeValidation();
     this.validation();
-
-    this.props.getProducts({
-      brand: this.inputSelect.current?.value,
-    });
   };
   render() {
     return (

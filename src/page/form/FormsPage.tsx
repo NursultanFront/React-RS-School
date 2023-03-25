@@ -1,20 +1,21 @@
-import Cards from 'components/cards/Cards';
 import React, { Component } from 'react';
 import Form from '../../components/form/Form';
+import FormCards from '../../components/form/FormCards';
 
 interface Props {
   message?: string;
 }
 
 interface Product {
-  id?: string | number;
-  data?: Date;
-  brand?: string;
-  color?: string;
-  img?: string;
+  id: string | number | undefined;
+  date: string | undefined;
+  brand: string | undefined;
+  color: string | undefined;
+  img: string | undefined;
 }
 
 interface State {
+  count: number;
   products: Product[];
 }
 
@@ -24,14 +25,15 @@ export default class FormsPage extends Component<Props, State> {
   }
 
   state: State = {
+    count: 0,
     products: [],
   };
 
-  getProducts = (value: Product) => {
-    console.log(value);
+  getProducts = (value: Product, count: number) => {
     this.setState((prevState: State) => {
       return {
         ...prevState,
+        count,
         products: [...prevState.products, value],
       };
     });
@@ -40,8 +42,8 @@ export default class FormsPage extends Component<Props, State> {
   render() {
     return (
       <>
-        <Form getProducts={this.getProducts}></Form>
-        {/* <Cards></Card> */}
+        <Form getProducts={this.getProducts} count={this.state.count}></Form>
+        <FormCards count={this.state.count} products={this.state.products}></FormCards>
       </>
     );
   }
