@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { InputField } from '../formInputs/InputField';
 
 interface Product {
+  name: string | undefined;
   id: string | number | undefined;
   date: string | undefined;
   brand: string | undefined;
@@ -23,7 +24,6 @@ interface Options {
 
 interface Input {
   inputTextError: boolean;
-  inputRegisterError: boolean;
   inputDateError: boolean;
   inputFileError: boolean;
   inputRadioError: boolean;
@@ -50,7 +50,6 @@ export default class Form extends Component<Props, State> {
     formState: false,
     inputState: {
       inputTextError: false,
-      inputRegisterError: false,
       inputDateError: false,
       inputFileError: false,
       inputRadioError: false,
@@ -61,7 +60,6 @@ export default class Form extends Component<Props, State> {
 
   inputsDefault: Input = {
     inputTextError: false,
-    inputRegisterError: false,
     inputDateError: false,
     inputFileError: false,
     inputRadioError: false,
@@ -91,10 +89,11 @@ export default class Form extends Component<Props, State> {
   createCards = (value: State['formState']) => {
     if (value) {
       const imagePreview = this.inputFile.current?.files;
-
-      if (imagePreview) {
+      const letter = this.inputText.current?.value;
+      if (imagePreview && letter) {
         this.props.getProducts(
           {
+            name: letter[0].toUpperCase() + letter.slice(1),
             brand: this.inputSelect.current?.value,
             color: this.inputRadioBlack.current?.value ?? this.inputRadioWhite.current?.value,
             img: URL.createObjectURL(imagePreview[0]),
@@ -107,6 +106,7 @@ export default class Form extends Component<Props, State> {
 
       setTimeout(() => {
         this.clearForm();
+        this.setState({ formState: false });
       }, 3000);
     }
   };
@@ -119,10 +119,6 @@ export default class Form extends Component<Props, State> {
 
   clearForm = () => {
     this.form.current?.reset();
-
-    setTimeout(() => {
-      this.setState({ formState: false });
-    }, 5000);
   };
 
   checkState = (value: State['inputState']) => {

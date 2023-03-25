@@ -7,6 +7,7 @@ interface Props {
 }
 
 interface Product {
+  name: string | undefined;
   id: string | number | undefined;
   date: string | undefined;
   brand: string | undefined;
