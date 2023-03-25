@@ -33,13 +33,16 @@ export default class FormsPage extends Component<Props, State> {
     const card = localStorage.getItem('cards');
     if (typeof card === 'string') {
       const parse = JSON.parse(card);
-      console.log(parse);
       this.setState({ products: parse });
     }
+
+    const countCards = localStorage.getItem('countCards');
+    this.setState({ count: Number(countCards) });
   }
 
-  componentWillUnmount(): void {
+  componentDidUpdate(): void {
     localStorage.setItem('cards', JSON.stringify(this.state.products));
+    localStorage.setItem('countCards', JSON.stringify(this.state.count));
   }
 
   getProducts = (value: Product, count: number) => {
