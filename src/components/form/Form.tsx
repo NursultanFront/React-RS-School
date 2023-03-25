@@ -90,18 +90,24 @@ export default class Form extends Component<Props, State> {
 
   createCards = (value: State['formState']) => {
     if (value) {
-      this.props.getProducts(
-        {
-          brand: this.inputSelect.current?.value,
-          color: this.inputRadioBlack.current?.value ?? this.inputRadioWhite.current?.value,
-          img: this.inputFile.current?.value,
-          date: this.inputDate.current?.value,
-          id: this.props.count + 1,
-        },
-        this.props.count + 1
-      );
+      const imagePreview = this.inputFile.current?.files;
 
-      this.clearForm();
+      if (imagePreview) {
+        this.props.getProducts(
+          {
+            brand: this.inputSelect.current?.value,
+            color: this.inputRadioBlack.current?.value ?? this.inputRadioWhite.current?.value,
+            img: URL.createObjectURL(imagePreview[0]),
+            date: this.inputDate.current?.value,
+            id: this.props.count + 1,
+          },
+          this.props.count + 1
+        );
+      }
+
+      setTimeout(() => {
+        this.clearForm();
+      }, 3000);
     }
   };
   radioCheck = () => {

@@ -21,7 +21,12 @@ export default class FormCards extends Component<Props> {
         <h2 className="d-center">{count == 0 ? 'There is no cards' : null}</h2>
         {products &&
           products.map((item) => {
-            return <li key={item.id}>{item.brand}</li>;
+            return (
+              <li key={item.id}>
+                <h3> {item.brand}</h3>
+                <img src={item.img} alt="" />
+              </li>
+            );
           })}
       </ul>
     );
