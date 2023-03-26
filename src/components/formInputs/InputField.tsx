@@ -10,7 +10,6 @@ interface IProps {
   errorMessage?: string;
   showError?: boolean;
   children?: string;
-  labelText?: string;
 }
 
 interface State {
@@ -19,12 +18,10 @@ interface State {
 
 export class InputField extends Component<IProps, State> {
   render() {
-    const { type, refProp, errorMessage, showError, name, value, children, id, labelText } =
-      this.props;
+    const { type, refProp, errorMessage, showError, name, value, children, id } = this.props;
     return (
       <>
         <label htmlFor={id}>
-          <p>{labelText}</p>
           {children}
           <input data-testid={id} id={id} type={type} ref={refProp} name={name} value={value} />
           <p className="errors">{showError && errorMessage}</p>

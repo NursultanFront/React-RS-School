@@ -206,7 +206,6 @@ export default class Form extends Component<Props, State> {
               refProp={this.inputDate}
             ></InputField>
             <InputField
-              labelText="upload: "
               id="file"
               type="file"
               showError={this.state.inputState.inputFileError}

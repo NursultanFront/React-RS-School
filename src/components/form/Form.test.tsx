@@ -29,7 +29,7 @@ describe('Testing form', () => {
     const file = new File(['hello'], 'hello.png', { type: 'image/png' });
     render(<Form count={count} getProducts={getProducts} />);
 
-    const input = screen.getByLabelText(/upload/i) as HTMLInputElement;
+    const input = screen.getByTestId('file') as HTMLInputElement;
 
     await user.upload(input, file);
 
