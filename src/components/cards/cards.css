@@ -1,0 +1,52 @@
+.cards-wrapper {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 30px;
+}
+
+.card-item {
+  grid-column: span 3 / span 3;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgb(174, 167, 167);
+  border-radius: 5px;
+  background-color: rgb(218, 218, 218);
+}
+
+.card-img {
+  object-fit: cover;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+}
+
+.card-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.card-title {
+  margin: 0 0 10px;
+  line-height: 100%;
+}
+
+.card-brand {
+  margin: 0 0 10px;
+}
+
+.card-descr {
+  margin: 0 0 20px;
+  font-size: 13px;
+}
+
+.card-info {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-more-info {
+  display: flex;
+  gap: 5px;
+}
