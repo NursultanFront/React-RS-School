@@ -11,8 +11,6 @@ describe('App', () => {
       </BrowserRouter>
     );
 
-    screen.debug();
-
     // check if App components renders headline
   });
 });

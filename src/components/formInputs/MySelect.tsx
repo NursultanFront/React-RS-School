@@ -5,6 +5,7 @@ interface Values {
   brand: string;
 }
 interface IProps {
+  id: string;
   errorMessage: string;
   showError: boolean;
   refProp: LegacyRef<HTMLSelectElement>;
@@ -17,10 +18,10 @@ interface IProps {
 
 export default class MySelect extends Component<IProps> {
   render() {
-    const { refProp, options, errorMessage, showError } = this.props;
+    const { refProp, options, errorMessage, showError, id } = this.props;
     return (
       <>
-        <select defaultValue="" name="select" ref={refProp}>
+        <select defaultValue="" name="select" ref={refProp} data-testid={id}>
           <option value="" disabled>
             {options.defaultValue}
           </option>

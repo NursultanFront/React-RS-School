@@ -103,9 +103,8 @@ export default class Form extends Component<Props, State> {
           this.props.count + 1
         );
       }
-
+      this.clearForm();
       setTimeout(() => {
-        this.clearForm();
         this.setState({ formState: false });
       }, 3000);
     }
@@ -207,6 +206,7 @@ export default class Form extends Component<Props, State> {
               refProp={this.inputDate}
             ></InputField>
             <InputField
+              labelText="upload: "
               id="file"
               type="file"
               showError={this.state.inputState.inputFileError}
@@ -237,6 +237,7 @@ export default class Form extends Component<Props, State> {
               </p>
             </div>
             <MySelect
+              id="select"
               showError={this.state.inputState.inputSelectError}
               errorMessage="Please choose your brand"
               refProp={this.inputSelect}
@@ -252,7 +253,9 @@ export default class Form extends Component<Props, State> {
               I consent to my personal data field, list of extra presents
             </InputField>
             <div>
-              <button type="submit">Submit</button>
+              <button disabled={this.state.formState} data-testid="btn" type="submit">
+                Submit
+              </button>
             </div>
 
             <p className="success">{this.state.formState && 'Submit succesful'}</p>
