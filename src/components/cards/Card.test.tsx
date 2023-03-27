@@ -45,7 +45,7 @@ const allProduct: IProduct[] = [
     brand: 'Apple',
     descr: 'sdsa',
     eyeIcon: 'sas',
-    id: 2,
+    id: 3,
     images: '111',
     likeIcon: 'sdsa',
     likes: 111,
