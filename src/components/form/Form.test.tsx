@@ -15,7 +15,7 @@ describe('Testing form', () => {
   });
 
   it('Testing function', () => {
-    const { debug } = render(<Form count={count} getProducts={getProducts} />);
+    render(<Form count={count} getProducts={getProducts} />);
     const btn = screen.getByTestId('btn');
 
     fireEvent.click(btn);
