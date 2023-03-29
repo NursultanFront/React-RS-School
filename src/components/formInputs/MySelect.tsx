@@ -1,53 +1,41 @@
-import React, { Component, LegacyRef } from 'react';
-import { FieldErrors, UseFormRegister } from 'react-hook-form';
-
-type Inputs = {
-  example: string;
-  exampleRequired: string;
-};
+import { Inputs, Options } from '../form/form.interface';
+import { FieldErrors, Path, UseFormRegister } from 'react-hook-form';
 
 type ValidationSchema = {
   required: string;
   minLength: { value: number; message: string };
 };
 
-interface Values {
-  id: number;
-  brand: string;
-}
 interface IProps {
-  id?: string;
-  errorMessage?: string;
-  showError?: boolean;
-  refProp?: LegacyRef<HTMLSelectElement>;
-  options: {
-    defaultValue: string;
-    values: Values[];
-  };
-
+  id: string;
+  options: Options;
+  name: Path<Inputs>;
   errors?: FieldErrors<Inputs>;
-  register?: UseFormRegister<Inputs>;
-  validationSchema: ValidationSchema;
+  register: UseFormRegister<Inputs>;
+  validationSchema?: ValidationSchema;
   required?: boolean;
 }
 
-export default class MySelect extends Component<IProps> {
-  render() {
-    const { refProp, options, errorMessage, showError, id } = this.props;
-    return (
-      <>
-        <select defaultValue="" name="select" ref={refProp} data-testid={id}>
-          <option value="" disabled>
-            {options.defaultValue}
+export const MySelect = (props: IProps) => {
+  return (
+    <>
+      <select
+        {...props.register(props.name)}
+        defaultValue=""
+        name={props.name}
+        data-testid={props.id}
+      >
+        <option value="" disabled>
+          {props.options.defaultValue}
+        </option>
+        {props.options.values.map((option) => (
+          <option key={option.id} value={option.brand}>
+            {option.brand}
           </option>
-          {options.values.map((option) => (
-            <option key={option.id} value={option.brand}>
-              {option.brand}
-            </option>
-          ))}
-        </select>
-        <p className="errors">{showError && errorMessage}</p>
-      </>
-    );
-  }
-}
+        ))}
+      </select>
+    </>
+  );
+};
+
+export default MySelect;

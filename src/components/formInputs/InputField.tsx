@@ -1,10 +1,5 @@
-import { LegacyRef } from 'react';
+import { Inputs } from '../form/form.interface';
 import { FieldErrors, Path, UseFormRegister } from 'react-hook-form';
-
-type Inputs = {
-  text: string;
-  date: string;
-};
 
 type ValidationSchema = {
   required: string;
@@ -12,21 +7,18 @@ type ValidationSchema = {
 };
 
 interface IProps {
+  value?: string;
   name: Path<Inputs>;
   type: string;
   id: string;
-  value?: string;
-  errorMessage?: string;
-  showError?: boolean;
   children?: string;
-  errors?: FieldErrors<Inputs>;
+  errors: FieldErrors<Inputs>;
   register: UseFormRegister<Inputs>;
-  validationSchema: ValidationSchema;
-  required?: boolean;
+  validationSchema?: ValidationSchema;
+  required: boolean;
 }
 
 export const InputField = (props: IProps) => {
-  console.log(props.errors);
   return (
     <>
       <label htmlFor={props.id}>
@@ -35,8 +27,8 @@ export const InputField = (props: IProps) => {
           data-testid={props.id}
           id={props.id}
           type={props.type}
-          value={props.value}
           {...props.register(props.name, props.validationSchema)}
+          value={props.value}
         />
       </label>
     </>
