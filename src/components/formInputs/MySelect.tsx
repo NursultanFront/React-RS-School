@@ -1,19 +1,34 @@
 import React, { Component, LegacyRef } from 'react';
+import { FieldErrors, UseFormRegister } from 'react-hook-form';
+
+type Inputs = {
+  example: string;
+  exampleRequired: string;
+};
+
+type ValidationSchema = {
+  required: string;
+  minLength: { value: number; message: string };
+};
 
 interface Values {
   id: number;
   brand: string;
 }
 interface IProps {
-  id: string;
-  errorMessage: string;
-  showError: boolean;
-  refProp: LegacyRef<HTMLSelectElement>;
+  id?: string;
+  errorMessage?: string;
+  showError?: boolean;
+  refProp?: LegacyRef<HTMLSelectElement>;
   options: {
-    empty: string | undefined;
     defaultValue: string;
     values: Values[];
   };
+
+  errors?: FieldErrors<Inputs>;
+  register?: UseFormRegister<Inputs>;
+  validationSchema: ValidationSchema;
+  required?: boolean;
 }
 
 export default class MySelect extends Component<IProps> {

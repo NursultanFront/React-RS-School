@@ -1,32 +1,44 @@
-import React, { Component, LegacyRef } from 'react';
+import { LegacyRef } from 'react';
+import { FieldErrors, Path, UseFormRegister } from 'react-hook-form';
+
+type Inputs = {
+  text: string;
+  date: string;
+};
+
+type ValidationSchema = {
+  required: string;
+  minLength: { value: number; message: string };
+};
 
 interface IProps {
-  text?: string;
-  name?: string;
+  name: Path<Inputs>;
   type: string;
-  id?: string | undefined;
-  refProp: LegacyRef<HTMLInputElement>;
+  id: string;
   value?: string;
   errorMessage?: string;
   showError?: boolean;
   children?: string;
+  errors?: FieldErrors<Inputs>;
+  register: UseFormRegister<Inputs>;
+  validationSchema: ValidationSchema;
+  required?: boolean;
 }
 
-interface State {
-  showError: boolean;
-}
-
-export class InputField extends Component<IProps, State> {
-  render() {
-    const { type, refProp, errorMessage, showError, name, value, children, id } = this.props;
-    return (
-      <>
-        <label htmlFor={id}>
-          {children}
-          <input data-testid={id} id={id} type={type} ref={refProp} name={name} value={value} />
-          <p className="errors">{showError && errorMessage}</p>
-        </label>
-      </>
-    );
-  }
-}
+export const InputField = (props: IProps) => {
+  console.log(props.errors);
+  return (
+    <>
+      <label htmlFor={props.id}>
+        {props.children}
+        <input
+          data-testid={props.id}
+          id={props.id}
+          type={props.type}
+          value={props.value}
+          {...props.register(props.name, props.validationSchema)}
+        />
+      </label>
+    </>
+  );
+};
