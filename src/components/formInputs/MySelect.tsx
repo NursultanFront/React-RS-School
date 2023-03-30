@@ -1,29 +1,30 @@
-import { Inputs, Options } from '../form/form.interface';
-import { FieldErrors, Path, UseFormRegister, FieldValues } from 'react-hook-form';
+import { Options } from '../form/form.interface';
 
-type ValidationSchema = {
-  required: string;
-  minLength: { value: number; message: string };
-};
+import { FieldErrors, FieldValues, Path, UseFormRegister } from 'react-hook-form';
 
-interface IProps {
+interface IProps<T extends FieldValues> {
+  value?: string;
+  name: Path<T>;
   id: string;
+  children?: string;
+  register: UseFormRegister<T>;
+  errors: FieldErrors<T>;
+  required: boolean;
+  className?: string;
   options: Options;
-  name: Path<Inputs>;
-  errors?: FieldErrors<Inputs>;
-  register: UseFormRegister<Inputs>;
-  validationSchema?: ValidationSchema;
-  required?: boolean;
 }
 
-export const MySelect = (props: IProps) => {
+export const MySelect = <T extends FieldValues>(props: IProps<T>) => {
   return (
     <>
       <select
-        {...props.register(props.name)}
+        {...props.register(props.name, {
+          required: 'Please choose one of the brand',
+        })}
         defaultValue=""
         name={props.name}
         data-testid={props.id}
+        className={props.className}
       >
         <option value="" disabled>
           {props.options.defaultValue}
@@ -34,6 +35,9 @@ export const MySelect = (props: IProps) => {
           </option>
         ))}
       </select>
+      {props.errors && (
+        <span className="errors">{props.errors[props.name]?.message?.toString()}</span>
+      )}
     </>
   );
 };

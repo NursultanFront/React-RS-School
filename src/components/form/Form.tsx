@@ -1,9 +1,12 @@
 import MySelect from '../formInputs/MySelect';
 import { InputField } from '../formInputs/InputField';
-import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { Inputs, OptionEnum, Options, Product } from './form.interface';
 import { FileInput } from '../formInputs/FileInput';
+import { CheckboxInput } from '../formInputs/CheckboxInput';
+import RadioButton from '../formInputs/RadioButton';
 
+import './form.css';
 interface Props {
   count: number;
   getProducts: (value: Product, count: number) => void;
@@ -17,13 +20,18 @@ const Form = (props: Props) => {
   } = useForm<Inputs>({ mode: 'onSubmit', reValidateMode: 'onSubmit' });
 
   const options: Options = {
-    defaultValue: 'Choose your phone',
+    defaultValue: 'Choose your brand',
     values: [
       { id: 1, brand: OptionEnum.Samsung },
       { id: 2, brand: OptionEnum.Apple },
       { id: 3, brand: OptionEnum.Xiaomi },
     ],
   };
+
+  const radioOptions = [
+    { id: 1, value: 'Black', radioName: 'black' },
+    { id: 2, value: 'White', radioName: 'white' },
+  ];
 
   const validationSchema = {
     required: 'Field text is required',
@@ -41,14 +49,6 @@ const Form = (props: Props) => {
     },
   };
 
-  // const fileValidationSchema = {
-  //   required: 'Field text is required',
-  //   validate: {
-  //     acceptedFormat: (files: string) =>
-  //       (files.length > 0 && files[0].startsWith('image')) || 'Please choose right format',
-  //   },
-  // };
-
   const onSubmit = (data: Inputs) => {
     console.log(data);
   };
@@ -64,6 +64,7 @@ const Form = (props: Props) => {
           register={register}
           required
           validationSchema={validationSchema}
+          className="input-text"
         />
         <InputField
           id="date"
@@ -73,35 +74,25 @@ const Form = (props: Props) => {
           register={register}
           required
           validationSchema={validationSchema}
+          className="input-text"
         />
-        <FileInput errors={errors} id="file" name="file" register={register} required></FileInput>
+        <FileInput
+          errors={errors}
+          id="file"
+          name="file"
+          register={register}
+          required
+          className="input-text"
+        ></FileInput>
 
-        <div>
-          <InputField
-            id="black"
-            errors={errors}
-            register={register}
-            name="color"
-            type="radio"
-            value="Black"
-            required
-            validationSchema={validationSchema}
-          >
-            Black
-          </InputField>
-          <InputField
-            id="white"
-            name="color"
-            register={register}
-            errors={errors}
-            type="radio"
-            value="White"
-            required
-            validationSchema={validationSchema}
-          >
-            White
-          </InputField>
-        </div>
+        <RadioButton
+          errors={errors}
+          required
+          name="color"
+          register={register}
+          options={radioOptions}
+          className="input-text"
+        ></RadioButton>
 
         <MySelect
           name="options"
@@ -110,19 +101,19 @@ const Form = (props: Props) => {
           register={register}
           options={options}
           required
+          className="input-text"
         ></MySelect>
 
-        {/* <InputField
+        <CheckboxInput
           id="check"
-          type="checkbox"
           name="check"
           errors={errors}
           register={register}
           required
-          validationSchema={validationSchema}
+          className="input-text"
         >
           I consent to my personal data field, list of extra presents
-        </InputField> */}
+        </CheckboxInput>
 
         <button type="submit">Submit</button>
       </form>

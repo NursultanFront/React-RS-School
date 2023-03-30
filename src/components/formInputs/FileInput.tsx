@@ -1,21 +1,14 @@
 import { Inputs } from '../form/form.interface';
 import { FieldErrors, FieldValues, Path, UseFormRegister } from 'react-hook-form';
 
-// interface ValidationSchema {
-//   required: string;
-//   validate: {
-//     acceptedFormat: (file: FileList | null) => boolean | string;
-//   };
-// }
-
 interface IProps {
   name: Path<Inputs>;
   id: string;
   children?: string;
   errors: FieldErrors<Inputs>;
   register: UseFormRegister<Inputs>;
-  // validationSchema?: ValidationSchema;
   required: boolean;
+  className?: string;
 }
 
 export const FileInput = (props: IProps) => {
@@ -24,6 +17,7 @@ export const FileInput = (props: IProps) => {
       <label htmlFor={props.id}>
         {props.children}
         <input
+          className={props.className}
           data-testid={props.id}
           id={props.id}
           type="file"

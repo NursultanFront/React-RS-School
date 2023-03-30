@@ -20,6 +20,7 @@ interface IinputTextProps<T extends FieldValues> {
   errors: FieldErrors<T>;
   required: boolean;
   validationSchema: ValidationSchema;
+  className?: string;
 }
 
 export function InputField<T extends FieldValues>(props: IinputTextProps<T>) {
@@ -29,6 +30,7 @@ export function InputField<T extends FieldValues>(props: IinputTextProps<T>) {
       <label htmlFor={props.id}>
         {props.children}
         <input
+          className={props.className}
           data-testid={props.id}
           id={props.id}
           type={props.type}
