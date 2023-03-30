@@ -17,14 +17,14 @@ export interface Options {
   values: OptionValues[];
 }
 
-export type Inputs = {
+export interface Inputs {
   text: string;
   date: string;
   options: OptionEnum;
-  file: string;
+  file: FileList | null;
   color: string;
   check: string;
-};
+}
 
 export enum OptionEnum {
   Samsung = 'Samsung',

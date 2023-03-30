@@ -1,5 +1,5 @@
 import { Inputs, Options } from '../form/form.interface';
-import { FieldErrors, Path, UseFormRegister } from 'react-hook-form';
+import { FieldErrors, Path, UseFormRegister, FieldValues } from 'react-hook-form';
 
 type ValidationSchema = {
   required: string;
