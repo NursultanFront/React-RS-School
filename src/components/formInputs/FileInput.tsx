@@ -1,5 +1,5 @@
 import { Inputs } from '../form/form.interface';
-import { FieldErrors, FieldValues, Path, UseFormRegister } from 'react-hook-form';
+import { FieldErrors, Path, UseFormRegister } from 'react-hook-form';
 
 interface IProps {
   name: Path<Inputs>;

@@ -1,5 +1,3 @@
-import { FieldErrors, FieldValues, Path, UseFormRegister } from 'react-hook-form';
-
 export interface Product {
   name: string | undefined;
   id: string | number | undefined;

@@ -1,4 +1,3 @@
-import { Inputs } from '../form/form.interface';
 import { FieldErrors, FieldValues, Path, UseFormRegister } from 'react-hook-form';
 
 type ValidationSchema = {
