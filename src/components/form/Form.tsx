@@ -17,6 +17,7 @@ const Form = (props: Props) => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<Inputs>({ mode: 'onSubmit', reValidateMode: 'onSubmit' });
 
   const options: Options = {
@@ -50,7 +51,21 @@ const Form = (props: Props) => {
   };
 
   const onSubmit = (data: Inputs) => {
-    console.log(data);
+    if (data.file) {
+      props.getProducts(
+        {
+          brand: data.options,
+          color: data.color,
+          date: data.date,
+          id: props.count + 1,
+          img: URL.createObjectURL(data.file[0]),
+          name: data.text,
+        },
+        props.count + 1
+      );
+    }
+
+    reset();
   };
 
   return (
