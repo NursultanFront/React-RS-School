@@ -14,7 +14,7 @@ const Form = (props: Props) => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Inputs>();
+  } = useForm<Inputs>({ mode: 'onSubmit', reValidateMode: 'onSubmit' });
 
   const options: Options = {
     defaultValue: 'Choose your phone',
@@ -26,7 +26,7 @@ const Form = (props: Props) => {
   };
 
   const validationSchema = {
-    required: true,
+    required: 'Field text is required',
     minLength: {
       value: 3,
       message: 'Please enter a minimum of 3 characters',
@@ -41,13 +41,13 @@ const Form = (props: Props) => {
     },
   };
 
-  const fileValidationSchema = {
-    required: 'Field text is required',
-    validate: {
-      acceptedFormat: (files: string) =>
-        (files.length > 0 && files[0].startsWith('image')) || 'Please choose right format',
-    },
-  };
+  // const fileValidationSchema = {
+  //   required: 'Field text is required',
+  //   validate: {
+  //     acceptedFormat: (files: string) =>
+  //       (files.length > 0 && files[0].startsWith('image')) || 'Please choose right format',
+  //   },
+  // };
 
   const onSubmit = (data: Inputs) => {
     console.log(data);
@@ -56,7 +56,7 @@ const Form = (props: Props) => {
   return (
     <div className="d-center">
       <form onSubmit={handleSubmit(onSubmit)} className="form">
-        {/* <InputField
+        <InputField
           id="text"
           type="text"
           name="text"
@@ -64,33 +64,19 @@ const Form = (props: Props) => {
           register={register}
           required
           validationSchema={validationSchema}
-        /> */}
-        {/* <InputField
+        />
+        <InputField
           id="date"
           type="date"
           name="date"
           errors={errors}
           register={register}
           required
-        /> */}
-        {/* <InputField
-          id="file"
-          type="file"
-          errors={errors}
-          register={register}
-          name="file"
-          required
-        ></InputField> */}
-        <FileInput
-          errors={errors}
-          id="file"
-          name="file"
-          register={register}
-          validationSchema={fileValidationSchema}
-          required
-        ></FileInput>
+          validationSchema={validationSchema}
+        />
+        <FileInput errors={errors} id="file" name="file" register={register} required></FileInput>
 
-        {/* <div>
+        <div>
           <InputField
             id="black"
             errors={errors}
@@ -99,6 +85,7 @@ const Form = (props: Props) => {
             type="radio"
             value="Black"
             required
+            validationSchema={validationSchema}
           >
             Black
           </InputField>
@@ -110,6 +97,7 @@ const Form = (props: Props) => {
             type="radio"
             value="White"
             required
+            validationSchema={validationSchema}
           >
             White
           </InputField>
@@ -124,13 +112,14 @@ const Form = (props: Props) => {
           required
         ></MySelect>
 
-        <InputField
+        {/* <InputField
           id="check"
           type="checkbox"
           name="check"
           errors={errors}
           register={register}
           required
+          validationSchema={validationSchema}
         >
           I consent to my personal data field, list of extra presents
         </InputField> */}

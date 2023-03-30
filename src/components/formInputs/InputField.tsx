@@ -1,30 +1,29 @@
 import { Inputs } from '../form/form.interface';
-import { FieldErrors, Path, UseFormRegister } from 'react-hook-form';
+import { FieldErrors, FieldValues, Path, UseFormRegister } from 'react-hook-form';
 
 type ValidationSchema = {
-  required: boolean;
+  required: string;
   minLength?: { value: number; message: string };
   maxLength?: { value: number; message: string };
-  pattern?: RegExp;
   validate: {
     firstLetter: (value: string) => boolean | string;
   };
 };
 
-interface IProps {
+interface IinputTextProps<T extends FieldValues> {
   value?: string;
-  name: Path<Inputs>;
+  name: Path<T>;
   type: string;
   id: string;
   children?: string;
-  errors: FieldErrors<Inputs>;
-  register: UseFormRegister<Inputs>;
-  validationSchema?: ValidationSchema;
+  register: UseFormRegister<T>;
+  errors: FieldErrors<T>;
   required: boolean;
+  validationSchema: ValidationSchema;
 }
 
-export const InputField = (props: IProps) => {
-  console.dir(props);
+export function InputField<T extends FieldValues>(props: IinputTextProps<T>) {
+  console.log(props);
   return (
     <>
       <label htmlFor={props.id}>
@@ -37,19 +36,9 @@ export const InputField = (props: IProps) => {
           value={props.value}
         />
       </label>
-      {props.errors && props.errors[props.name]?.type === 'minLength' && (
-        <span className="error">{props.errors[props.name]?.message}</span>
+      {props.errors && (
+        <span className="errors">{props.errors[props.name]?.message?.toString()}</span>
       )}
-      {props.errors && props.errors[props.name]?.type === 'required' && (
-        <span className="error">Field text is required</span>
-      )}
-      {props.errors && props.errors[props.name]?.type === 'maxLength' && (
-        <span className="error">{props.errors[props.name]?.message}</span>
-      )}
-      {props.errors &&
-        props.errors[props.name]?.type === 'firstLetter' &&
-        props.name === 'text' && <span className="error">{props.errors[props.name]?.message}</span>}
-      {props.errors && props.errors[props.name]?.type === 'validateFile' && props.name === 'text'}
     </>
   );
-};
+}
