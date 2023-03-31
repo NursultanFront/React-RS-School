@@ -1,10 +1,11 @@
 import { Inputs } from '../form/form.interface';
 import { FieldErrors, Path, UseFormRegister } from 'react-hook-form';
+import { ReactNode } from 'react';
 
 interface IProps {
   name: Path<Inputs>;
   id: string;
-  children?: string;
+  children?: ReactNode;
   errors: FieldErrors<Inputs>;
   register: UseFormRegister<Inputs>;
   required: boolean;

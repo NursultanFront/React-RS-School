@@ -51,19 +51,20 @@ const Form = (props: Props) => {
   };
 
   const onSubmit = (data: Inputs) => {
-    if (data.file) {
-      props.getProducts(
-        {
-          brand: data.options,
-          color: data.color,
-          date: data.date,
-          id: props.count + 1,
-          img: URL.createObjectURL(data.file[0]),
-          name: data.text,
-        },
-        props.count + 1
-      );
-    }
+    // if (data.file) {
+    // }
+
+    props.getProducts(
+      {
+        brand: data.options,
+        color: data.color,
+        date: data.date,
+        id: props.count + 1,
+        img: URL.createObjectURL(data.file![0]),
+        name: data.text,
+      },
+      props.count + 1
+    );
 
     reset();
   };
@@ -98,7 +99,7 @@ const Form = (props: Props) => {
           register={register}
           required
           className="input-text"
-        ></FileInput>
+        />
 
         <RadioButton
           errors={errors}
@@ -107,7 +108,7 @@ const Form = (props: Props) => {
           register={register}
           options={radioOptions}
           className="input-text"
-        ></RadioButton>
+        />
 
         <MySelect
           name="options"
@@ -117,7 +118,7 @@ const Form = (props: Props) => {
           options={options}
           required
           className="input-text"
-        ></MySelect>
+        />
 
         <CheckboxInput
           id="check"
@@ -130,7 +131,9 @@ const Form = (props: Props) => {
           I consent to my personal data field, list of extra presents
         </CheckboxInput>
 
-        <button type="submit">Submit</button>
+        <button data-testid="btn" type="submit">
+          Submit
+        </button>
       </form>
     </div>
   );
