@@ -2,6 +2,13 @@ import { Inputs } from '../form/form.interface';
 import { FieldErrors, Path, UseFormRegister } from 'react-hook-form';
 import { ReactNode } from 'react';
 
+type ValidationScheme = {
+  required: string;
+  validate: {
+    acceptedFormat: (files: FileList | null) => string | boolean;
+  };
+};
+
 interface IProps {
   name: Path<Inputs>;
   id: string;
@@ -10,6 +17,7 @@ interface IProps {
   register: UseFormRegister<Inputs>;
   required: boolean;
   className?: string;
+  validationSchema: ValidationScheme;
 }
 
 export const FileInput = (props: IProps) => {
@@ -22,14 +30,7 @@ export const FileInput = (props: IProps) => {
           data-testid={props.id}
           id={props.id}
           type="file"
-          {...props.register('file', {
-            required: 'Field text is required',
-            validate: {
-              acceptedFormat: (files: FileList | null) =>
-                (files && ['image/jpeg', 'image/jpg', 'image/png'].includes(files[0].type)) ||
-                'Please choose right format',
-            },
-          })}
+          {...props.register('file', props.validationSchema)}
         />
       </label>
       {props.errors && <span className="errors">{props.errors['file']?.message?.toString()}</span>}

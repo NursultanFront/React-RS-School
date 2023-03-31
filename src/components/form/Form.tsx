@@ -50,10 +50,16 @@ const Form = (props: Props) => {
     },
   };
 
-  const onSubmit = (data: Inputs) => {
-    // if (data.file) {
-    // }
+  const fileValidateScheme = {
+    required: 'Field text is required',
+    validate: {
+      acceptedFormat: (files: FileList | null) =>
+        (files && ['image/jpeg', 'image/jpg', 'image/png'].includes(files[0].type)) ||
+        'Please choose right format',
+    },
+  };
 
+  const onSubmit = (data: Inputs) => {
     props.getProducts(
       {
         brand: data.options,
@@ -99,6 +105,7 @@ const Form = (props: Props) => {
           register={register}
           required
           className="input-text"
+          validationSchema={fileValidateScheme}
         />
 
         <RadioButton
