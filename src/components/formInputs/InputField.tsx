@@ -23,7 +23,6 @@ interface IinputTextProps<T extends FieldValues> {
 }
 
 export function InputField<T extends FieldValues>(props: IinputTextProps<T>) {
-  console.log(props);
   return (
     <>
       <label htmlFor={props.id}>

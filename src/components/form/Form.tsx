@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import MySelect from '../formInputs/MySelect';
 import { InputField } from '../formInputs/InputField';
 import { useForm } from 'react-hook-form';
@@ -13,10 +14,12 @@ interface Props {
 }
 
 const Form = (props: Props) => {
+  const [showSucces, setShowSuccess] = useState(false);
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitSuccessful },
+
     reset,
   } = useForm<Inputs>({ mode: 'onSubmit', reValidateMode: 'onSubmit' });
 
@@ -60,6 +63,7 @@ const Form = (props: Props) => {
   };
 
   const onSubmit = (data: Inputs) => {
+    setShowSuccess(true);
     props.getProducts(
       {
         brand: data.options,
@@ -72,8 +76,16 @@ const Form = (props: Props) => {
       props.count + 1
     );
 
-    reset();
+    setTimeout(() => {
+      setShowSuccess(false);
+    }, 3000);
   };
+
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset();
+    }
+  }, [reset, isSubmitSuccessful]);
 
   return (
     <div className="d-center">
@@ -138,9 +150,10 @@ const Form = (props: Props) => {
           I consent to my personal data field, list of extra presents
         </CheckboxInput>
 
-        <button data-testid="btn" type="submit">
+        <button disabled={showSucces} data-testid="btn" type="submit">
           Submit
         </button>
+        {showSucces && <p className="success">Form submitted</p>}
       </form>
     </div>
   );
