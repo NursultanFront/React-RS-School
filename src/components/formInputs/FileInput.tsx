@@ -1,5 +1,5 @@
 import { Inputs } from '../form/form.interface';
-import { FieldErrors, Path, UseFormRegister } from 'react-hook-form';
+import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { ReactNode } from 'react';
 
 type ValidationScheme = {
@@ -10,7 +10,6 @@ type ValidationScheme = {
 };
 
 interface IProps {
-  name: Path<Inputs>;
   id: string;
   children?: ReactNode;
   errors: FieldErrors<Inputs>;

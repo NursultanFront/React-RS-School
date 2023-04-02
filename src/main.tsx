@@ -6,9 +6,9 @@ import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
 import About from './page/about/About';
 import NotFound from './page/notFound/NotFound';
 
-import './index.css';
 import Home from './page/home/Home';
 import FormsPage from './page/form/FormsPage';
+import './index.css';
 
 const router = createBrowserRouter([
   {

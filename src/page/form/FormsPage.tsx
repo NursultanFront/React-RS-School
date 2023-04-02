@@ -60,8 +60,6 @@ const FormsPage = () => {
     <>
       <Form getProducts={getProducts} count={count}></Form>
       <FormCards count={count} products={products}></FormCards>
-      {/* <button onClick={getFromLocal}>Получить</button>
-      <button onClick={setLocal}>Установить</button> */}
     </>
   );
 };

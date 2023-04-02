@@ -33,8 +33,8 @@ const Form = (props: Props) => {
   };
 
   const radioOptions = [
-    { id: 1, value: 'Black', radioName: 'black' },
-    { id: 2, value: 'White', radioName: 'white' },
+    { id: 1, value: 'Black' },
+    { id: 2, value: 'White' },
   ];
 
   const validationSchema = {
@@ -113,7 +113,6 @@ const Form = (props: Props) => {
         <FileInput
           errors={errors}
           id="file"
-          name="file"
           register={register}
           required
           className="input-text"
@@ -126,6 +125,7 @@ const Form = (props: Props) => {
           name="color"
           register={register}
           options={radioOptions}
+          errorMessage="Please choose one of the color"
           className="input-text"
         />
 

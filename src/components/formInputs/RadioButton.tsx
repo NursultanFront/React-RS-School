@@ -2,11 +2,12 @@ import { FieldErrors, FieldValues, Path, UseFormRegister } from 'react-hook-form
 
 interface RadioInputProps<T extends FieldValues> {
   name: Path<T>;
-  options: { id: number; value: string; radioName: string }[];
+  options: { id: number; value: string }[];
   register: UseFormRegister<T>;
   errors: FieldErrors<T>;
   required: boolean;
   className?: string;
+  errorMessage: string;
 }
 
 const RadioInput = <T extends FieldValues>(props: RadioInputProps<T>) => {
@@ -15,15 +16,16 @@ const RadioInput = <T extends FieldValues>(props: RadioInputProps<T>) => {
       <div className={props.className}>
         {props.options &&
           props.options.map((item) => {
+            const inputName = item.value.toLowerCase();
             return (
-              <label key={item.id} htmlFor={item.radioName}>
+              <label key={item.id} htmlFor={inputName}>
                 {item.value}
                 <input
-                  data-testid={item.radioName}
-                  id={item.radioName}
+                  data-testid={inputName}
+                  id={inputName}
                   type="radio"
                   {...props.register(props.name, {
-                    required: 'Please choose one of the color',
+                    required: props.errorMessage,
                   })}
                   value={item.value}
                 />
