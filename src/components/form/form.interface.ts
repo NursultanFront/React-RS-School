@@ -1,10 +1,10 @@
 export interface Product {
-  name: string | undefined;
-  id: string | number | undefined;
-  date: string | undefined;
-  brand: string | undefined;
-  color: string | undefined;
-  img: string | undefined;
+  name: string;
+  id: string | number;
+  date: string;
+  brand: string;
+  color: string;
+  img: string;
 }
 
 export interface OptionValues {

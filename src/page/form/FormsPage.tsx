@@ -1,15 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
+import { Product } from '../../components/form/form.interface';
 import Form from '../../components/form/Form';
 import FormCards from '../../components/form/FormCards';
-
-interface Product {
-  name: string | undefined;
-  id: string | number | undefined;
-  date: string | undefined;
-  brand: string | undefined;
-  color: string | undefined;
-  img: string | undefined;
-}
 
 interface State {
   count: number;
