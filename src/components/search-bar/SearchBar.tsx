@@ -1,3 +1,4 @@
+import { api } from '../../api/index';
 import React, { useEffect, useRef, useState } from 'react';
 import SearchIcon from '../../assets/search.svg';
 import './search.css';
@@ -11,9 +12,17 @@ const SearchBar = () => {
 
   const value = useRef<string>('');
 
-  const getInputText = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value);
-    value.current = inputValue;
+  const getInputText = (event?: React.ChangeEvent<HTMLInputElement>) => {
+    if (event && event.target) {
+      setInputValue(event.target.value);
+      value.current = inputValue;
+    }
+  };
+
+  const serachThing = async () => {
+    getInputText();
+    const response = await api.products.search({ q: inputValue });
+    console.log(response);
   };
 
   useEffect(() => {
@@ -45,6 +54,7 @@ const SearchBar = () => {
             placeholder="Search"
           />
         </label>
+        <button onClick={serachThing}>search</button>
       </div>
     </div>
   );
