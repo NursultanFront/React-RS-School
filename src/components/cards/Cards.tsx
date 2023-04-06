@@ -1,42 +1,43 @@
-import type { IProduct } from 'data/cards';
+import { Character } from 'api/character/types';
+
 import './cards.css';
 
 interface Props {
-  products: IProduct[];
+  products: Character[];
+  error: boolean;
+  loading: boolean;
 }
 
 const Cards = (props: Props) => {
+  if (props.error) {
+    return <p>Error</p>;
+  }
+
+  if (props.loading) {
+    return <p>Loading</p>;
+  }
   return (
-    <ul className="cards-wrapper">
-      {props.products.map((item) => {
-        return (
-          <li key={item.id} className="card-item">
-            <img
-              className="card-img"
-              src={item.images}
-              alt="image for cards"
-              width={295}
-              height={300}
-            />
-            <div className="card-content">
-              <h3 className="card-title">{item.title}</h3>
-              <p className="card-brand">{item.brand}</p>
-              <p className="card-descr">{item.descr}</p>
-              <div className="card-info">
-                <div className="card-more-info">
-                  <img src={item.likeIcon} width={24} height={24} alt="Likes" />
-                  <div>{item.likes}</div>
+    <>
+      <ul className="cards-wrapper">
+        {props.products.length > 0 &&
+          props.products.map((item) => {
+            return (
+              <li key={item.id} className="card-item">
+                <img
+                  className="card-img"
+                  src={item.image}
+                  alt="image for cards"
+                  width={295}
+                  height={300}
+                />
+                <div className="card-content">
+                  <h3 className="card-title">{item.name}</h3>
                 </div>
-                <div className="card-more-info">
-                  <img src={item.eyeIcon} width={24} height={24} alt="views" />
-                  <div>{item.views}</div>
-                </div>
-              </div>
-            </div>
-          </li>
-        );
-      })}
-    </ul>
+              </li>
+            );
+          })}
+      </ul>
+    </>
   );
 };
 export default Cards;

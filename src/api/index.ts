@@ -1,13 +1,13 @@
 import axios from 'axios';
-import Product from './products/index';
+import CharacterRest from './character/index';
 
 class Api {
   private readonly endpoint;
-  public products;
+  public character;
 
   public constructor() {
     this.endpoint = Api.createEndpoint();
-    this.products = new Product(this.endpoint);
+    this.character = new CharacterRest(this.endpoint);
   }
 
   private static createEndpoint() {
