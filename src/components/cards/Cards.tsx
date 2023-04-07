@@ -10,11 +10,11 @@ interface Props {
 
 const Cards = (props: Props) => {
   if (props.error) {
-    return <p>Error</p>;
+    return <h3 style={{ textAlign: 'center', color: 'red' }}>Error</h3>;
   }
 
   if (props.loading) {
-    return <p>Loading</p>;
+    return <h3 style={{ textAlign: 'center' }}>Loading....</h3>;
   }
   return (
     <>

@@ -15,23 +15,26 @@ const Home = () => {
 
   const checkLocal = (value: Character[]) => {
     const char = localStorage.getItem('characters');
+    const searchValue = localStorage.getItem('input-value') ?? '';
+    if (searchValue.length == 0) {
+      setProduct(value);
+      localStorage.removeItem('characters');
+      return;
+    }
+
     if (char) {
       const parse = JSON.parse(char);
-      if (parse.length > 0) {
-        console.log('works');
-        setProduct(parse);
-        return;
-      }
+      setProduct(parse);
     }
-    setProduct(value);
   };
 
   useEffect(() => {
+    const value = localStorage.getItem('input-value') ?? '';
     const getProducts = async () => {
       try {
         setErrorProduct(false);
         setLoadingProduct(true);
-        const { results } = await api.character.list();
+        const { results } = await api.character.searchName(value);
         setLoadingProduct(false);
         checkLocal(results);
       } catch (error) {

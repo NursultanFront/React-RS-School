@@ -14,7 +14,7 @@ export default class CharacterRest extends BasicRest {
     return this.getRequest<List<Character>>(this.urlName);
   }
 
-  public searchName(value: string, params?: { status: string }) {
+  public searchName(value?: string, params?: { status: string }) {
     return this.getRequest<List<Character>>(`${this.urlName}/?name=${value}`, params);
   }
 }

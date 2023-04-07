@@ -26,17 +26,7 @@ const SearchBar = (props: IProps) => {
     }
   };
 
-  const searchChar = async (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key !== 'Enter') {
-      return;
-    }
-
-    if (valueInput.current.length == 0) {
-      setErrorMessage(true);
-      return;
-    }
-    setErrorMessage(false);
-    getInputText();
+  const getData = async () => {
     try {
       props.setError(false);
       props.setLoading(true);
@@ -49,8 +39,22 @@ const SearchBar = (props: IProps) => {
     }
   };
 
+  const searchChar = async (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key !== 'Enter') {
+      return;
+    }
+
+    if (valueInput.current.length == 0) {
+      setErrorMessage(true);
+      return;
+    }
+    setErrorMessage(false);
+    getInputText();
+    getData();
+  };
+
   useEffect(() => {
-    setInputValue(localStorage.getItem('input-value') ?? '');
+    setInputValue(valueInput.current);
 
     return () => {
       localStorage.setItem('input-value', valueInput.current);
