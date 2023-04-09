@@ -10,7 +10,7 @@ export type Character = {
   image: string;
   episode: string[];
   url: string;
-  created: Date;
+  created?: Date;
 };
 
 interface ILocation {

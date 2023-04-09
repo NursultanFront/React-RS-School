@@ -3,9 +3,10 @@ import { Character } from 'api/character/types';
 import './cards.css';
 
 interface Props {
-  products: Character[];
-  error: boolean;
-  loading: boolean;
+  characters: Character[];
+  error?: boolean;
+  loading?: boolean;
+  getOneChar: (id: number) => void;
 }
 
 const Cards = (props: Props) => {
@@ -14,19 +15,24 @@ const Cards = (props: Props) => {
   }
 
   if (props.loading) {
-    return <h3 style={{ textAlign: 'center' }}>Loading....</h3>;
+    return <h3 style={{ textAlign: 'center' }}>Loading...</h3>;
   }
+
+  const setChar = (id: number) => {
+    props.getOneChar(id);
+  };
+
   return (
     <>
       <ul className="cards-wrapper">
-        {props.products.length > 0 &&
-          props.products.map((item) => {
+        {props.characters.length > 0 &&
+          props.characters.map((item) => {
             return (
-              <li key={item.id} className="card-item">
+              <li key={item.id} className="card-item" onClick={() => setChar(item.id)}>
                 <img
                   className="card-img"
                   src={item.image}
-                  alt="image for cards"
+                  alt="character-image"
                   width={295}
                   height={300}
                 />
