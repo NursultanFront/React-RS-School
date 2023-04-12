@@ -65,26 +65,24 @@ const SearchBar = (props: IProps) => {
     <div>
       <div className="search">
         <h1 className="search-title">Search character</h1>
-        <form>
-          <label className="input-wrapper">
-            <img
-              src={SearchIcon}
-              alt="Search icon"
-              height={20}
-              width={20}
-              className="input-search-icon"
-            />
-            <input
-              data-testid="input-text-search"
-              className="input-search"
-              type="text"
-              value={inputValue}
-              onChange={getInputText}
-              onKeyDown={searchChar}
-              placeholder="Search"
-            />
-          </label>
-        </form>
+        <label className="input-wrapper">
+          <img
+            src={SearchIcon}
+            alt="Search icon"
+            height={20}
+            width={20}
+            className="input-search-icon"
+          />
+          <input
+            data-testid="input-text-search"
+            className="input-search"
+            type="text"
+            value={inputValue}
+            onChange={getInputText}
+            onKeyDown={searchChar}
+            placeholder="Search"
+          />
+        </label>
         <p style={{ marginTop: '20px', color: '#ffffff' }}>
           {errorMessage && 'Please type something'}
         </p>

@@ -12,7 +12,7 @@ class Api {
 
   private static createEndpoint() {
     return axios.create({
-      baseURL: import.meta.env.VITE_API_URL,
+      baseURL: 'https://rickandmortyapi.com/api',
       headers: {
         'Content-Type': 'application/json',
       },
