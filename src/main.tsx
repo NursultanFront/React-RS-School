@@ -1,4 +1,3 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
@@ -8,12 +7,19 @@ import NotFound from './page/notFound/NotFound';
 
 import Home from './page/home/Home';
 import FormsPage from './page/form/FormsPage';
+
+import { store } from './store/store';
+import { Provider } from 'react-redux';
 import './index.css';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <App></App>,
+    element: (
+      <Provider store={store}>
+        <App></App>
+      </Provider>
+    ),
     children: [
       {
         path: '/',

@@ -3,11 +3,10 @@ import React, { Dispatch, SetStateAction, useEffect, useRef, useState } from 're
 import SearchIcon from '../../assets/search.svg';
 import './search.css';
 import { Character } from 'api/character/types';
+import { useAppDispatch, useAppSelector } from '../../redux-hooks/redux-hooks';
 
 interface IProps {
   getChar: (value: Character[]) => void;
-  setError: Dispatch<SetStateAction<boolean>>;
-  setLoading: Dispatch<SetStateAction<boolean>>;
 }
 
 interface State {
@@ -18,6 +17,9 @@ const SearchBar = (props: IProps) => {
   const [inputValue, setInputValue] = useState<State['inputValue']>('');
   const [errorMessage, setErrorMessage] = useState<boolean>(false);
   const valueInput = useRef<string>(localStorage.getItem('input-value') ?? '');
+
+  const dispatch = useAppDispatch();
+  const { data, error, loading } = useAppSelector((state) => state.char);
 
   const getInputText = (event?: React.ChangeEvent<HTMLInputElement>) => {
     if (event && event.target) {

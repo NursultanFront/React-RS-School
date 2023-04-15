@@ -22,7 +22,6 @@ export abstract class BasicRest {
   }
 
   protected getRequest<T = AnyObj>(url: string, params?: object) {
-    console.log(url, params);
     return BasicRest.dataExtract<T>(this.endpoint.get<T>(url, { params }));
   }
 
