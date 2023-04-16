@@ -1,30 +1,58 @@
-import React from 'react';
+import { useEffect, useRef, useState } from 'react';
 import SearchIcon from '../../assets/search.svg';
 import './search.css';
+import { useAppDispatch } from '../../redux-hooks/redux-hooks';
+import { setSearchChar, setSearch } from '../../store/character/character';
+
+interface IProps {
+  search: string;
+}
 
 interface State {
   inputValue: string;
 }
 
-class SearchBar extends React.Component<Record<string, unknown>, State> {
-  state: State = { inputValue: '' };
+const SearchBar = (props: IProps) => {
+  const [inputValue, setInputValue] = useState<State['inputValue']>('');
+  const [errorMessage, setErrorMessage] = useState<boolean>(false);
+  const valueInput = useRef<string>(props.search ?? '');
 
-  public getInputText = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ inputValue: event.target.value });
+  const dispatch = useAppDispatch();
+
+  const getInputText = (event?: React.ChangeEvent<HTMLInputElement>) => {
+    if (event && event.target) {
+      setInputValue(event.target.value);
+      valueInput.current = event.target.value;
+    }
   };
 
-  componentDidMount(): void {
-    this.setState({ inputValue: localStorage.getItem('input-value') ?? '' });
-  }
+  const getData = async () => {
+    dispatch(setSearchChar(inputValue.toLowerCase()));
+    dispatch(setSearch(inputValue));
+  };
 
-  componentWillUnmount(): void {
-    localStorage.setItem('input-value', this.state.inputValue);
-  }
+  const searchChar = async (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key !== 'Enter') {
+      return;
+    }
 
-  render() {
-    return (
+    if (valueInput.current.length == 0) {
+      setErrorMessage(true);
+      return;
+    }
+    setErrorMessage(false);
+    getInputText();
+    getData();
+  };
+
+  useEffect(() => {
+    setInputValue(valueInput.current);
+  }, []);
+
+  return (
+    <div>
       <div className="search">
-        <h1 className="search-title">Search Something</h1>
+        <h1 className="search-title">Search character</h1>
         <label className="input-wrapper">
           <img
             src={SearchIcon}
@@ -37,14 +65,18 @@ class SearchBar extends React.Component<Record<string, unknown>, State> {
             data-testid="input-text-search"
             className="input-search"
             type="text"
-            value={this.state.inputValue}
-            onChange={this.getInputText}
+            value={inputValue}
+            onChange={getInputText}
+            onKeyDown={searchChar}
             placeholder="Search"
           />
         </label>
+        <p style={{ marginTop: '20px', color: '#ffffff' }}>
+          {errorMessage && 'Please type something'}
+        </p>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default SearchBar;
