@@ -8,14 +8,14 @@ interface Product {
 }
 
 interface Props {
-  count: number;
+  isExist: boolean;
   products: Product[];
 }
 
 const FormCards = (props: Props) => {
   return (
     <>
-      <h2 className="d-center">{props.count == 0 ? 'There is no cards' : null}</h2>
+      {!props.isExist && <h2 className="d-center">There is no cards</h2>}
       <ul className="cards-wrapper">
         {props.products &&
           props.products.map((item) => {

@@ -58,6 +58,3 @@ const characterSlice = createSlice({
 
 export const { setSearch } = characterSlice.actions;
 export default characterSlice.reducer;
-function getState() {
-  throw new Error('Function not implemented.');
-}

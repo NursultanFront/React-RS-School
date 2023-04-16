@@ -6,14 +6,11 @@ import { Inputs, OptionEnum, Options, Product } from './form.interface';
 import { FileInput } from '../formInputs/FileInput';
 import { CheckboxInput } from '../formInputs/CheckboxInput';
 import RadioButton from '../formInputs/RadioButton';
-
+import { setForm } from '../../store/forms/forms';
+import { useAppDispatch, useAppSelector } from '../../redux-hooks/redux-hooks';
 import './form.css';
-interface Props {
-  count: number;
-  getProducts: (value: Product, count: number) => void;
-}
 
-const Form = (props: Props) => {
+const Form = () => {
   const [showSucces, setShowSuccess] = useState(false);
   const {
     register,
@@ -22,6 +19,9 @@ const Form = (props: Props) => {
 
     reset,
   } = useForm<Inputs>({ mode: 'onSubmit', reValidateMode: 'onSubmit' });
+
+  const dispatch = useAppDispatch();
+  const { count } = useAppSelector((state) => state.form);
 
   const options: Options = {
     defaultValue: 'Choose your brand',
@@ -64,17 +64,15 @@ const Form = (props: Props) => {
 
   const onSubmit = (data: Inputs) => {
     setShowSuccess(true);
-    props.getProducts(
-      {
-        brand: data.options,
-        color: data.color,
-        date: data.date,
-        id: props.count + 1,
-        img: URL.createObjectURL(data.file![0]),
-        name: data.text,
-      },
-      props.count + 1
-    );
+    const obj = {
+      brand: data.options,
+      color: data.color,
+      date: data.date,
+      id: count + 1,
+      img: URL.createObjectURL(data.file![0]),
+      name: data.text,
+    };
+    dispatch(setForm(obj));
 
     setTimeout(() => {
       setShowSuccess(false);
