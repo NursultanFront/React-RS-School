@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import MySelect from '../formInputs/MySelect';
 import { InputField } from '../formInputs/InputField';
 import { useForm } from 'react-hook-form';
-import { Inputs, OptionEnum, Options, Product } from './form.interface';
+import { Inputs, OptionEnum, Options } from './form.interface';
 import { FileInput } from '../formInputs/FileInput';
 import { CheckboxInput } from '../formInputs/CheckboxInput';
 import RadioButton from '../formInputs/RadioButton';

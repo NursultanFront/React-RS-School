@@ -1,9 +1,7 @@
-import { api } from '../../api/index';
-import React, { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import SearchIcon from '../../assets/search.svg';
 import './search.css';
-import { Character } from 'api/character/types';
-import { useAppDispatch, useAppSelector } from '../../redux-hooks/redux-hooks';
+import { useAppDispatch } from '../../redux-hooks/redux-hooks';
 import { setSearchChar, setSearch } from '../../store/character/character';
 
 interface IProps {
